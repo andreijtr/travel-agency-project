@@ -1,0 +1,97 @@
+package com.sda.travel_agency.entities;
+
+import javax.persistence.*;
+import java.util.Objects;
+
+@NamedQueries({
+        @NamedQuery(name = "hotel.findAll",
+                    query = "select h from Hotel h")
+})
+
+@Entity
+@Table(name = "hotels")
+public class Hotel {
+
+    @Id
+    private int id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "standard")
+    private int standard;
+
+    @Column(name = "description")
+    private String description;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "city_id")
+    private City city;
+
+    public Hotel() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Hotel)) return false;
+        Hotel hotel = (Hotel) o;
+        return id == hotel.id &&
+                standard == hotel.standard &&
+                name.equals(hotel.name) &&
+                description.equals(hotel.description) &&
+                city.equals(hotel.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, standard, description, city);
+    }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", standard=" + standard +
+                ", description='" + description + '\'' +
+                ", city=" + city +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getStandard() {
+        return standard;
+    }
+
+    public void setStandard(int standard) {
+        this.standard = standard;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+}

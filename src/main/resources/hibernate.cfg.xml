@@ -22,6 +22,7 @@
         <mapping class="com.sda.travel_agency.entities.Continent" />
         <mapping class="com.sda.travel_agency.entities.Country" />
         <mapping class="com.sda.travel_agency.entities.City" />
+        <mapping class="com.sda.travel_agency.entities.Hotel" />
 
     </session-factory>
 </hibernate-configuration>

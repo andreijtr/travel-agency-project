@@ -1,36 +1,34 @@
 package com.sda.travel_agency.repository;
 
 import com.sda.travel_agency.config.HibernateUtil;
-import com.sda.travel_agency.entities.City;
-import com.sda.travel_agency.logic.dto.CityDTO;
+import com.sda.travel_agency.entities.Hotel;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
+import java.util.List;
 
 @Repository
-public class CityDAO {
+public class HotelDAO {
 
-    public void save(City city) {
+    public void save(Hotel hotel) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        session.save(city);
+        session.save(hotel);
         transaction.commit();
         session.close();
     }
 
-    public City find(CityDTO cityDTO){
+    public List<Hotel> findAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        Query query = session.createNamedQuery("city.findByNameAndCountry");
-        query.setParameter("cityName", cityDTO.getName());
-        query.setParameter("countryName", cityDTO.getCountryDTO().getName());
-        City city = (City) query.getSingleResult();
+        Query query = session.createNamedQuery("hotel.findAll");
+        List<Hotel> hotelList = query.getResultList();
         transaction.commit();
         session.close();
-        return city;
+        return hotelList;
     }
 }

@@ -1,7 +1,14 @@
 package com.sda.travel_agency.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+@NamedQueries({
+        @NamedQuery(name = "city.findByNameAndCountry",
+                    query = "select c from City c where c.name = :cityName and c.country.name = :countryName")
+})
 
 @Entity
 @Table(name = "cities")
@@ -16,6 +23,9 @@ public class City {
     @ManyToOne()
     @JoinColumn(name = "country_id")
     private Country country;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Hotel> hotels = new HashSet<>();
 
     public City (String name, Country country) {
         this.name = name;
