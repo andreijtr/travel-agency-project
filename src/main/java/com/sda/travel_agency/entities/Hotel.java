@@ -1,11 +1,15 @@
 package com.sda.travel_agency.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "hotel.findAll",
-                    query = "select h from Hotel h")
+                    query = "select h from Hotel h"),
+        @NamedQuery(name = "hotel.find",
+                    query = "select h from Hotel h where h.name = :hotelName and h.city.name = :cityName")
 })
 
 @Entity
@@ -27,6 +31,9 @@ public class Hotel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id")
     private City city;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<HotelAvailability> hotelAvailabilitySet = new HashSet<>();
 
     public Hotel() {
     }
