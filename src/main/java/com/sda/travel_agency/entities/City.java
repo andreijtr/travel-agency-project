@@ -27,6 +27,9 @@ public class City {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Hotel> hotels = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Airport> airports = new HashSet<>();
+
     public City (String name, Country country) {
         this.name = name;
         this.country = country;

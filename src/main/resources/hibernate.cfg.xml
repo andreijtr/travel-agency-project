@@ -24,6 +24,8 @@
         <mapping class="com.sda.travel_agency.entities.City" />
         <mapping class="com.sda.travel_agency.entities.Hotel" />
         <mapping class="com.sda.travel_agency.entities.HotelAvailability" />
+        <mapping class="com.sda.travel_agency.entities.Airport" />
+        <mapping class="com.sda.travel_agency.entities.Flight" />
 
     </session-factory>
 </hibernate-configuration>
