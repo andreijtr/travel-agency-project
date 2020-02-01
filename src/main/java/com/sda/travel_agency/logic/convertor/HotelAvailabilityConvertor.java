@@ -19,7 +19,7 @@ public class HotelAvailabilityConvertor {
 
     public HotelAvailabilityDTO convertHotelAvailabilityToDTO(HotelAvailability hotelAvailability) {
         HotelAvailabilityDTO hotelAvailabilityDTO = new HotelAvailabilityDTO();
-        HotelDTO hotelDTO = hotelConvertor.convertHotelToHotelDTO(hotelAvailability.getHotel());
+        HotelDTO hotelDTO = hotelConvertor.convertToDTO(hotelAvailability.getHotel());
 
         hotelAvailabilityDTO.setHotelDTO(hotelDTO);
         hotelAvailabilityDTO.setStartDate(hotelAvailability.getStartDate());
@@ -35,9 +35,10 @@ public class HotelAvailabilityConvertor {
     }
 
     public HotelAvailability convertDTOToTransientObject(HotelAvailabilityDTO hotelAvailabilityDTO) {
-        HotelAvailability hotelAvailability = new HotelAvailability();
+        Hotel hotelTransient = hotelConvertor.convertToTransientHotel(hotelAvailabilityDTO.getHotelDTO());
+        Hotel hotel = hotelDAO.find(hotelTransient);
 
-        Hotel hotel = hotelDAO.find(hotelAvailabilityDTO.getHotelDTO());
+        HotelAvailability hotelAvailability = new HotelAvailability();
         hotelAvailability.setHotel(hotel);
         hotelAvailability.setStartDate(hotelAvailabilityDTO.getStartDate());
         hotelAvailability.setEndDate(hotelAvailabilityDTO.getEndDate());

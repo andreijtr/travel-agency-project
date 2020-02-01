@@ -21,7 +21,7 @@ public class HotelConvertor {
     private CityConvertor cityConvertor;
 
     //create hotel in order to save it in DB
-    public Hotel convertHotelDTOToTransientHotel(HotelDTO hotelDTO){
+    public Hotel convertToTransientHotel(HotelDTO hotelDTO){
         Hotel hotel = new Hotel();
         City city = cityDAO.find(hotelDTO.getCityDTO());
         hotel.setCity(city);
@@ -31,7 +31,7 @@ public class HotelConvertor {
         return hotel;
     }
 
-    public HotelDTO convertHotelToHotelDTO(Hotel hotel) {
+    public HotelDTO convertToDTO(Hotel hotel) {
         HotelDTO hotelDTO = new HotelDTO();
         CityDTO cityDTO = cityConvertor.convertCityToCityDTO(hotel.getCity());
         hotelDTO.setName(hotel.getName());
@@ -41,10 +41,10 @@ public class HotelConvertor {
         return hotelDTO;
     }
 
-    public List<HotelDTO> convertHotelListToHotelDTOList(List<Hotel> hotelList) {
+    public List<HotelDTO> convertToDTOList(List<Hotel> hotelList) {
         List<HotelDTO> hotelDTOList = new LinkedList<>();
         for (Hotel hotel : hotelList) {
-            HotelDTO hotelDTO = convertHotelToHotelDTO(hotel);
+            HotelDTO hotelDTO = convertToDTO(hotel);
             hotelDTOList.add(hotelDTO);
         }
         return hotelDTOList;

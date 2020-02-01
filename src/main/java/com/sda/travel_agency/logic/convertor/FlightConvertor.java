@@ -31,7 +31,7 @@ public class FlightConvertor {
         return flightDTO;
     }
 
-    public Flight convertDTOToTransientFlight(FlightDTO flightDTO){
+    public Flight convertToTransientFlight(FlightDTO flightDTO){
         Flight flight = new Flight();
         Airport airport = airportDAO.find(flightDTO.getAirportDTO().getName());
 

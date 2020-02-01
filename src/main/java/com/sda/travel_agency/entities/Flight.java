@@ -1,12 +1,14 @@
 package com.sda.travel_agency.entities;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "flight.find",
-                    query = "select f from Flight f where f.flightNumber = :flightNumber and f.departureDate = :departureDate and f.airport = :airport")
+                    query = "select f from Flight f where f.flightNumber = :flightNumber and f.airport = :airport")
 })
 
 @Entity
@@ -34,6 +36,12 @@ public class Flight {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "airport_id")
     private Airport airport;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Trip> departureTrips = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Trip> returnTrips = new HashSet<>();
 
     public Flight() {
     }
@@ -82,19 +90,19 @@ public class Flight {
         this.flightNumber = flightNumber;
     }
 
-    public Date getDepartureDate() {
+    public Date getDepartureDate(){
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(Date departureDate){
         this.departureDate = departureDate;
     }
 
-    public int getTotalSeats() {
+    public int getTotalSeats(){
         return totalSeats;
     }
 
-    public void setTotalSeats(int totalSeats) {
+    public void setTotalSeats(int totalSeats){
         this.totalSeats = totalSeats;
     }
 
@@ -102,7 +110,7 @@ public class Flight {
         return availableSeats;
     }
 
-    public void setAvailableSeats(int availableSeats) {
+    public void setAvailableSeats(int availableSeats){
         this.availableSeats = availableSeats;
     }
 
@@ -110,7 +118,7 @@ public class Flight {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(double price){
         this.price = price;
     }
 
@@ -118,7 +126,27 @@ public class Flight {
         return airport;
     }
 
-    public void setAirport(Airport airport) {
+    public void setAirport(Airport airport){
         this.airport = airport;
+    }
+
+    public void addDepartureTrip(Trip trip){
+        this.departureTrips.add(trip);
+        trip.setDepartureFlight(this);
+    }
+
+    public void removeDepartureTrip(Trip trip){
+        this.departureTrips.remove(trip);
+        trip.setDepartureFlight(this);
+    }
+
+    public void addReturnTrip(Trip trip) {
+        this.returnTrips.add(trip);
+        trip.setReturnFlight(this);
+    }
+
+    public void removeReturnTrip(Trip trip){
+        this.returnTrips.remove(trip);
+        trip.setReturnFlight(this);
     }
 }

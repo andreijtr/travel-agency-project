@@ -1,7 +1,7 @@
 package com.sda.travel_agency.entities;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity

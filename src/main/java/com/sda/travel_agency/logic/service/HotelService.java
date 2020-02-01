@@ -20,13 +20,13 @@ public class HotelService {
 
     //method to save a new hotel sent from frontend to DB
     public void save(HotelDTO hotelDTO) {
-        Hotel hotel = hotelConvertor.convertHotelDTOToTransientHotel(hotelDTO);
+        Hotel hotel = hotelConvertor.convertToTransientHotel(hotelDTO);
         hotelDAO.save(hotel);
     }
 
     public List<HotelDTO> findAll() {
         List<Hotel> hotelList = hotelDAO.findAll();
-        List<HotelDTO> hotelDTOList = hotelConvertor.convertHotelListToHotelDTOList(hotelList);
+        List<HotelDTO> hotelDTOList = hotelConvertor.convertToDTOList(hotelList);
         return hotelDTOList;
     }
 }

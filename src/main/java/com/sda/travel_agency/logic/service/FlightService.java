@@ -17,7 +17,7 @@ public class FlightService {
     private FlightConvertor flightConvertor;
 
     public void save(FlightDTO flightDTO){
-        Flight transientFlight = flightConvertor.convertDTOToTransientFlight(flightDTO);
+        Flight transientFlight = flightConvertor.convertToTransientFlight(flightDTO);
         flightDAO.save(transientFlight);
     }
 }

@@ -7,6 +7,9 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 @Repository
 public class FlightDAO {
@@ -26,8 +29,8 @@ public class FlightDAO {
 
         Query query = session.createNamedQuery("flight.find");
         query.setParameter("flightNumber", flightTransient.getFlightNumber());
-        query.setParameter("departureDate", flightTransient.getDepartureDate());
         query.setParameter("airport", flightTransient.getAirport());
+
         Flight flight = (Flight) query.getSingleResult();
         transaction.commit();
         session.close();

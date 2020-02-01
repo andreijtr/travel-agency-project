@@ -35,6 +35,9 @@ public class Hotel {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<HotelAvailability> hotelAvailabilitySet = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Trip> tripSet = new HashSet<>();
+
     public Hotel() {
     }
 

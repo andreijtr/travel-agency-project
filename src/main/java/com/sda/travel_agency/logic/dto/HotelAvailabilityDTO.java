@@ -1,6 +1,6 @@
 package com.sda.travel_agency.logic.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class HotelAvailabilityDTO {
     private HotelDTO hotelDTO;

@@ -10,7 +10,7 @@
         <property name="connection.password">parola</property>
 
         <!-- JDBC connection pool settings ... using built-in test pool -->
-        <property name="connection.pool_size">2</property>
+<!--        <property name="connection.pool_size">2</property>-->
         <!-- Select our SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <!-- Echo the SQL to stdout -->
@@ -26,6 +26,7 @@
         <mapping class="com.sda.travel_agency.entities.HotelAvailability" />
         <mapping class="com.sda.travel_agency.entities.Airport" />
         <mapping class="com.sda.travel_agency.entities.Flight" />
+        <mapping class="com.sda.travel_agency.entities.Trip" />
 
     </session-factory>
 </hibernate-configuration>
