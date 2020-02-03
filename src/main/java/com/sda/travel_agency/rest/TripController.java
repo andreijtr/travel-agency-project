@@ -1,17 +1,15 @@
 package com.sda.travel_agency.rest;
 
-import com.sda.travel_agency.logic.dto.CityDTO;
-import com.sda.travel_agency.logic.dto.HotelDTO;
 import com.sda.travel_agency.logic.dto.TripDTO;
+import com.sda.travel_agency.logic.dto.TripDetailDTO;
+import com.sda.travel_agency.logic.service.TripDetailService;
 import com.sda.travel_agency.logic.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
-import java.util.zip.DataFormatException;
 
 @RestController
 @RequestMapping(path = "/trips")
@@ -19,6 +17,9 @@ public class TripController {
 
     @Autowired
     private TripService tripService;
+
+    @Autowired
+    private TripDetailService tripDetailService;
 
     @PostMapping(path = "/add", consumes = "application/json")
     public ResponseEntity<String> save(@RequestBody TripDTO tripDTO) {
@@ -35,5 +36,11 @@ public class TripController {
     public ResponseEntity<List<TripDTO>> find(@RequestBody TripDTO tripDTO) {
         List<TripDTO> tripDTOList = tripService.find(tripDTO);
         return new ResponseEntity<>(tripDTOList, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/buy")
+    public ResponseEntity<String> buy(@RequestBody TripDetailDTO tripDetailDTO) {
+        String result = tripDetailService.save(tripDetailDTO);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

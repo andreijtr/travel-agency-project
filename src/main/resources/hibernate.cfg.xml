@@ -27,6 +27,8 @@
         <mapping class="com.sda.travel_agency.entities.Airport" />
         <mapping class="com.sda.travel_agency.entities.Flight" />
         <mapping class="com.sda.travel_agency.entities.Trip" />
+        <mapping class="com.sda.travel_agency.entities.User" />
+        <mapping class="com.sda.travel_agency.entities.TripDetail" />
 
     </session-factory>
 </hibernate-configuration>

@@ -8,7 +8,9 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "flight.find",
-                    query = "select f from Flight f where f.flightNumber = :flightNumber and f.airport = :airport")
+                    query = "select f from Flight f where f.flightNumber = :flightNumber and f.airport = :airport"),
+        @NamedQuery(name = "flight.updateAvailableSeats",
+                    query = "update Flight f set f.availableSeats = :availableSeats where f.id = :id")
 })
 
 @Entity

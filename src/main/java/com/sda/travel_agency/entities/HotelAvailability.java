@@ -4,6 +4,16 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
+@NamedQueries({
+        @NamedQuery(name = "hotelAvailability.find",
+                    query = "select ha from HotelAvailability ha where" +
+                            " ha.hotel = :hotel and ha.startDate = :startDate and ha.endDate = :endDate"),
+        @NamedQuery(name = "hotelAvailability.updateRooms",
+                    query = "update HotelAvailability ha set ha.singleRooms = :singleRooms," +
+                                                            "ha.doubleRooms = :doubleRooms," +
+                                                            "ha.extraBeds = :extraBeds where ha.id = :id")
+})
+
 @Entity
 @Table(name = "rooms")
 public class HotelAvailability {

@@ -36,11 +36,11 @@ public class TripDAO {
         return tripList;
     }
 
-    public List<Trip> find(Trip trip, City city) {
+    public List<Trip> findByTripAndCity(Trip trip, City city) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        Query query = session.createNamedQuery("trip.find");
+        Query query = session.createNamedQuery("trip.findByTripAndCity");
         query.setParameter("fromDate", trip.getCheckInDate());
         query.setParameter("toDate", trip.getCheckOutDate());
         query.setParameter("city", city);
@@ -50,5 +50,20 @@ public class TripDAO {
         transaction.commit();
         session.close();
         return tripList;
+    }
+
+    public Trip find(Trip trip) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query query = session.createNamedQuery("trip.find");
+        query.setParameter("checkInDate", trip.getCheckInDate());
+        query.setParameter("checkOutDate", trip.getCheckOutDate());
+        query.setParameter("hotel", trip.getHotel());
+        Trip tripFound = (Trip) query.getSingleResult();
+
+        transaction.commit();
+        session.close();
+        return tripFound;
     }
 }

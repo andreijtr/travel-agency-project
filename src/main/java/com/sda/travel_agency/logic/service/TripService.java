@@ -58,7 +58,12 @@ public class TripService {
             city = cityDAO.find(tripDTO.getHotelDTO().getCityDTO());
         }
 
-        List<Trip> tripList = tripDAO.find(trip, city);
+        List<Trip> tripList = tripDAO.findByTripAndCity(trip, city);
         return tripConvertor.convertToDTOList(tripList);
+    }
+
+    public Trip findSingle(TripDTO tripDTO) {
+        Trip trip = tripConvertor.convertToTransientTrip(tripDTO);
+        return tripDAO.find(trip);
     }
 }

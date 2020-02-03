@@ -2,18 +2,24 @@ package com.sda.travel_agency.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @NamedQueries({
         @NamedQuery(name = "trip.findAll",
                     query = "select t from Trip t"),
 
-        @NamedQuery(name = "trip.find",
+        @NamedQuery(name = "trip.findByTripAndCity",
                     query = "select t from Trip t where " +
                             "(:fromDate is null or t.checkInDate = :fromDate) and " +
                             "(:toDate is null or t.checkOutDate = :toDate) and" +
                             "(:city is null or t.hotel.city = :city) and" +
-                            "(:hotel is null or t.hotel = :hotel)")
+                            "(:hotel is null or t.hotel = :hotel)"),
+
+        @NamedQuery(name = "trip.find",
+                    query = "select t from Trip t where" +
+                            " t.checkInDate = :checkInDate and t.checkOutDate = :checkOutDate and t.hotel = :hotel")
 })
 
 @Entity
@@ -34,6 +40,9 @@ public class Trip {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<TripDetail> tripDetailList = new ArrayList<>();
 
     @Column(name = "start_date")
     private Date checkInDate;
@@ -129,5 +138,13 @@ public class Trip {
 
     public void setPromoted(Boolean promoted) {
         isPromoted = promoted;
+    }
+
+    public List<TripDetail> getTripDetailList() {
+        return tripDetailList;
+    }
+
+    public void setTripDetailList(List<TripDetail> tripDetailList) {
+        this.tripDetailList = tripDetailList;
     }
 }
