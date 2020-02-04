@@ -61,7 +61,7 @@ public class TripDetailConvertor {
         tripDetail.setDoubleRooms(tripDetailDTO.getDoubleRooms());
         tripDetail.setExtraBeds(tripDetailDTO.getExtraBeds());
         tripDetail.setDateOfPurchase(dateOfPurchase);
-        tripDetail.setTripNumber(UUID.randomUUID().toString());
+        tripDetail.setTripNumber(String.valueOf(tripDetail.hashCode()));
         tripDetail.setAmount(tripDetailDTO.getAmount());
 
         return tripDetail;
