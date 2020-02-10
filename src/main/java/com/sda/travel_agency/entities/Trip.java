@@ -11,15 +11,21 @@ import java.util.Objects;
                     query = "select t from Trip t"),
 
         @NamedQuery(name = "trip.findByTripAndCity",
-                    query = "select t from Trip t where " +
+                    query = "select t from Trip t left join fetch t.hotel h left join fetch h.hotelAvailabilitySet rooms where " +
                             "(:fromDate is null or t.checkInDate = :fromDate) and " +
                             "(:toDate is null or t.checkOutDate = :toDate) and" +
                             "(:city is null or t.hotel.city = :city) and" +
-                            "(:hotel is null or t.hotel = :hotel)"),
+                            "(:hotel is null or t.hotel = :hotel) and " +
+                            "(rooms.startDate = t.checkInDate and rooms.endDate = t.checkOutDate)"),
 
         @NamedQuery(name = "trip.find",
                     query = "select t from Trip t where" +
-                            " t.checkInDate = :checkInDate and t.checkOutDate = :checkOutDate and t.hotel = :hotel")
+                            " t.checkInDate = :checkInDate and t.checkOutDate = :checkOutDate and t.hotel = :hotel"),
+
+        @NamedQuery(name = "trip.findByDates",
+                    query = "select t from Trip t left join fetch t.hotel h left join fetch h.hotelAvailabilitySet rooms where " +
+                            "t.checkInDate = :checkInDate and t.checkOutDate = :checkOutDate and " +
+                            "rooms.startDate = t.checkInDate and rooms.endDate = t.checkOutDate")
 })
 
 @Entity

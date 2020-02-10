@@ -1,7 +1,6 @@
 package com.sda.travel_agency.repository;
 
 import com.sda.travel_agency.config.HibernateUtil;
-import com.sda.travel_agency.entities.Hotel;
 import com.sda.travel_agency.entities.HotelAvailability;
 import com.sda.travel_agency.entities.Trip;
 import org.hibernate.Session;

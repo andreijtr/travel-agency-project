@@ -2,9 +2,11 @@ package com.sda.travel_agency.repository;
 
 import com.sda.travel_agency.config.HibernateUtil;
 import com.sda.travel_agency.entities.City;
+import com.sda.travel_agency.entities.HotelAvailability;
 import com.sda.travel_agency.entities.Trip;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -15,6 +17,9 @@ import java.util.List;
 
 @Repository
 public class TripDAO {
+
+    @Autowired
+    private HotelAvailabilityDAO roomsDAO;
 
     public void save(Trip trip) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -65,5 +70,19 @@ public class TripDAO {
         transaction.commit();
         session.close();
         return tripFound;
+    }
+
+    public List<Trip> findByDates(Trip trip) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query query = session.createNamedQuery("trip.findByDates");
+        query.setParameter("checkInDate", trip.getCheckInDate());
+        query.setParameter("checkOutDate", trip.getCheckOutDate());
+        List<Trip> tripList = query.getResultList();
+
+        transaction.commit();
+        session.close();
+        return tripList;
     }
 }

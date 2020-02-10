@@ -74,21 +74,21 @@ public class HotelAvailability {
         return Objects.hash(id, hotel, startDate, endDate, singleRooms, doubleRooms, extraBeds, singleRoomPrice, doubleRoomPrice, extraBedPrice);
     }
 
-    @Override
-    public String toString() {
-        return "HotelAvailability{" +
-                "id=" + id +
-                ", hotel=" + hotel +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", singleRooms=" + singleRooms +
-                ", doubleRooms=" + doubleRooms +
-                ", extraBeds=" + extraBeds +
-                ", singleRoomPrice=" + singleRoomPrice +
-                ", doubleRoomPrice=" + doubleRoomPrice +
-                ", extraBedPrice=" + extraBedPrice +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "HotelAvailability{" +
+//                "id=" + id +
+//                ", hotel=" + hotel +
+//                ", startDate=" + startDate +
+//                ", endDate=" + endDate +
+//                ", singleRooms=" + singleRooms +
+//                ", doubleRooms=" + doubleRooms +
+//                ", extraBeds=" + extraBeds +
+//                ", singleRoomPrice=" + singleRoomPrice +
+//                ", doubleRoomPrice=" + doubleRoomPrice +
+//                ", extraBedPrice=" + extraBedPrice +
+//                '}';
+//    }
 
     public int getId() {
         return id;

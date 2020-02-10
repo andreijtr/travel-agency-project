@@ -9,6 +9,10 @@ public class TripDTO {
     private Date checkInDate;
     private Date checkOutDate;
     private String isPromoted;
+    private int numberOfPersons;
+    private double singleRoomPrice;
+    private double doubleeRoomPrice;
+    private double extraBedPrice;
 
     public TripDTO() {
     }
@@ -16,12 +20,13 @@ public class TripDTO {
     @Override
     public String toString() {
         return "TripDTO{" +
-                "departureflightDTO=" + departureFlightDTO +
+                "departureFlightDTO=" + departureFlightDTO +
                 ", returnFlightDTO=" + returnFlightDTO +
                 ", hotelDTO=" + hotelDTO +
                 ", checkInDate=" + checkInDate +
                 ", checkOutDate=" + checkOutDate +
-                ", isPromoted=" + isPromoted +
+                ", isPromoted='" + isPromoted + '\'' +
+                ", numberOfPersons=" + numberOfPersons +
                 '}';
     }
 
@@ -71,5 +76,13 @@ public class TripDTO {
 
     public void setIsPromoted(String isPromoted) {
         this.isPromoted = isPromoted;
+    }
+
+    public int getNumberOfPersons() {
+        return numberOfPersons;
+    }
+
+    public void setNumberOfPersons(int numberOfPersons) {
+        this.numberOfPersons = numberOfPersons;
     }
 }

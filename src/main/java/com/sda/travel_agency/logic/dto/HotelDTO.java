@@ -1,11 +1,15 @@
 package com.sda.travel_agency.logic.dto;
 
+import java.util.List;
+import java.util.Set;
+
 public class HotelDTO {
 
     private String name;
     private int standard;
     private String description;
     private CityDTO cityDTO;
+    private Set<HotelAvailabilityDTO> hotelAvailabilityDTOSet;
 
     public HotelDTO() {
     }
@@ -24,6 +28,7 @@ public class HotelDTO {
                 ", standard=" + standard +
                 ", description='" + description + '\'' +
                 ", cityDTO=" + cityDTO +
+                ", hotelAvailabilityDTOSet=" + hotelAvailabilityDTOSet +
                 '}';
     }
 
@@ -57,5 +62,13 @@ public class HotelDTO {
 
     public void setCityDTO(CityDTO cityDTO) {
         this.cityDTO = cityDTO;
+    }
+
+    public Set<HotelAvailabilityDTO> getHotelAvailabilityDTOSet() {
+        return hotelAvailabilityDTOSet;
+    }
+
+    public void setHotelAvailabilityDTOSet(Set<HotelAvailabilityDTO> hotelAvailabilityDTOSet) {
+        this.hotelAvailabilityDTOSet = hotelAvailabilityDTOSet;
     }
 }

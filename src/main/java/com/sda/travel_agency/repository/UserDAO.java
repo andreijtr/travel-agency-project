@@ -44,10 +44,23 @@ public class UserDAO {
         try{
             query.getSingleResult();
             transaction.commit();
-            session.close();
             return true;
         } catch (NoResultException ex) {
             return false;
+        } finally {
+            session.close();
         }
+    }
+
+    public void updateAmount(User user, double newAmount) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query userAmountUpdate = session.createNamedQuery("user.updateAmount");
+        userAmountUpdate.setParameter("amount", newAmount);
+        userAmountUpdate.setParameter("id", user.getId());
+        userAmountUpdate.executeUpdate();
+        transaction.commit();
+        session.close();
     }
 }

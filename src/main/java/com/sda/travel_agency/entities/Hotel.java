@@ -1,6 +1,7 @@
 package com.sda.travel_agency.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -32,7 +33,7 @@ public class Hotel {
     @JoinColumn(name = "city_id")
     private City city;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hotel")
     private Set<HotelAvailability> hotelAvailabilitySet = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -58,16 +59,16 @@ public class Hotel {
         return Objects.hash(id, name, standard, description, city);
     }
 
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", standard=" + standard +
-                ", description='" + description + '\'' +
-                ", city=" + city +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Hotel{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", standard=" + standard +
+//                ", description='" + description + '\'' +
+//                ", city=" + city +
+//                '}';
+//    }
 
     public int getId() {
         return id;
@@ -103,5 +104,37 @@ public class Hotel {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    @Transient
+    public void addRoom(HotelAvailability room) {
+        this.hotelAvailabilitySet.add(room);
+        room.setHotel(this);
+    }
+
+    @Transient
+    public void removeRoom(HotelAvailability room) {
+        this.hotelAvailabilitySet.remove(room);
+        room.setHotel(null);
+    }
+
+    public Set<HotelAvailability> getHotelAvailabilitySet() {
+        return hotelAvailabilitySet;
+    }
+
+    public void setHotelAvailabilitySet(Set<HotelAvailability> hotelAvailabilitySet) {
+        this.hotelAvailabilitySet = hotelAvailabilitySet;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Set<Trip> getTripSet() {
+        return tripSet;
+    }
+
+    public void setTripSet(Set<Trip> tripSet) {
+        this.tripSet = tripSet;
     }
 }
