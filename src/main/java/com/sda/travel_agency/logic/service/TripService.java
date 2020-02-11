@@ -8,15 +8,18 @@ import com.sda.travel_agency.logic.convertor.HotelConvertor;
 import com.sda.travel_agency.logic.convertor.TripConvertor;
 import com.sda.travel_agency.logic.dto.HotelDTO;
 import com.sda.travel_agency.logic.dto.TripDTO;
+import com.sda.travel_agency.logic.exception.NoTripFoundException;
 import com.sda.travel_agency.repository.CityDAO;
 import com.sda.travel_agency.repository.HotelAvailabilityDAO;
 import com.sda.travel_agency.repository.HotelDAO;
 import com.sda.travel_agency.repository.TripDAO;
+import com.sda.travel_agency.util.Consts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
 import java.util.List;
+import java.util.ListIterator;
 
 @Service
 public class TripService {
@@ -49,7 +52,7 @@ public class TripService {
         return tripConvertor.convertToDTOList(tripList);
     }
 
-    public List<TripDTO> find(TripDTO tripDTO) {
+    public List<TripDTO> find(TripDTO tripDTO) throws NoTripFoundException {
         Trip trip = new Trip();
         trip.setCheckInDate(tripDTO.getCheckInDate());
         trip.setCheckOutDate(tripDTO.getCheckOutDate());
@@ -65,9 +68,16 @@ public class TripService {
                 trip.setHotel(hotel);
             } catch (NoResultException ex) {
                 System.out.println("No hotel found!");
+                throw new NoTripFoundException("Sorry! The hotel with this name was not found!");
             }
         } else { //if not, search only by city
-            city = cityDAO.find(tripDTO.getHotelDTO().getCityDTO());
+            try {
+                city = cityDAO.find(tripDTO.getHotelDTO().getCityDTO());
+            } catch (NoResultException ex) {
+                System.out.println("No trips in this city!");
+                throw new NoTripFoundException("Sorry! There is not trip in " + hotelDTO.getCityDTO().getName()
+                        + " starting in " + trip.getCheckInDate() + " .");
+            }
         }
 
         //find all trips by given parameters
@@ -76,7 +86,11 @@ public class TripService {
         //for every trip found:
         //check hotel availability by number of persons, if not available remove it from list
         //search price for all type of rooms and set it to tripDTO
-        checkHotelAvailability(tripList, tripDTO.getNumberOfPersons());
+        tripList = checkHotelAvailability(tripList, tripDTO.getNumberOfPersons());
+        if (tripList.isEmpty()) {
+            System.out.println(Consts.INSUFFICIENT_PLACES_HOTEL);
+            throw new NoTripFoundException(Consts.INSUFFICIENT_PLACES_HOTEL);
+        }
         List<TripDTO> tripDTOList = tripConvertor.convertToDTOList(tripList);
 
         return tripDTOList;
@@ -90,13 +104,17 @@ public class TripService {
     //am modificat ca un trip sa vina cu hotelul iar hotelul sa contina in setul de rooms, camerele pt perioada selectata
     //acum verific daca sunt locuri. am facut modificarea de mai sus pentru a putea afisa pretul camerelor in hotelDTO
     //am modificat si hotelDTO, hotelAvailabilityDTO
-    private void checkHotelAvailability(List<Trip> tripList, int numberOfPersons) {
-        for (Trip trip : tripList) {
-            for (HotelAvailability rooms : trip.getHotel().getHotelAvailabilitySet()) {
+    private List<Trip> checkHotelAvailability(List<Trip> tripList, int numberOfPersons) {
+        ListIterator<Trip> listIterator = tripList.listIterator();
+        while(listIterator.hasNext()) {
+            for (HotelAvailability rooms : listIterator.next().getHotel().getHotelAvailabilitySet()) {
                 if (rooms.getSingleRooms() + 2 * rooms.getDoubleRooms() + rooms.getExtraBeds() < numberOfPersons){
-                    tripList.remove(trip);
+                    listIterator.remove();
                 }
             }
         }
+        return tripList;
     }
+
+    //ar trebui sa faci si pentru avion la fel
 }

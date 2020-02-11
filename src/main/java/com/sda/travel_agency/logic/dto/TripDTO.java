@@ -1,20 +1,53 @@
 package com.sda.travel_agency.logic.dto;
 
+import javax.validation.constraints.*;
 import java.sql.Date;
 
 public class TripDTO {
+
     private FlightDTO departureFlightDTO;
     private FlightDTO returnFlightDTO;
+
+    //these validations are for controller, so user is immediately notify is input is not valid (first level of validation)
+    @NotNull(message = "City or hotel are mandatory!")
     private HotelDTO hotelDTO;
+
+    @NotNull(message = "Please choose a start day for your trip")
     private Date checkInDate;
     private Date checkOutDate;
     private String isPromoted;
+
+    @Min(value = 1, message = "You should set at least one person.")
     private int numberOfPersons;
     private double singleRoomPrice;
-    private double doubleeRoomPrice;
+    private double doubleRoomPrice;
     private double extraBedPrice;
 
     public TripDTO() {
+    }
+
+    public double getSingleRoomPrice() {
+        return singleRoomPrice;
+    }
+
+    public void setSingleRoomPrice(double singleRoomPrice) {
+        this.singleRoomPrice = singleRoomPrice;
+    }
+
+    public double getDoubleRoomPrice() {
+        return doubleRoomPrice;
+    }
+
+    public void setDoubleRoomPrice(double doubleRoomPrice) {
+        this.doubleRoomPrice = doubleRoomPrice;
+    }
+
+    public double getExtraBedPrice() {
+        return extraBedPrice;
+    }
+
+    public void setExtraBedPrice(double extraBedPrice) {
+        this.extraBedPrice = extraBedPrice;
     }
 
     @Override

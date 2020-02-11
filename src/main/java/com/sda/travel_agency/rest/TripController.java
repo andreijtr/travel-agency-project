@@ -2,6 +2,7 @@ package com.sda.travel_agency.rest;
 
 import com.sda.travel_agency.logic.dto.TripDTO;
 import com.sda.travel_agency.logic.dto.TripDetailDTO;
+import com.sda.travel_agency.logic.exception.NoTripFoundException;
 import com.sda.travel_agency.logic.service.TripDetailService;
 import com.sda.travel_agency.logic.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +35,7 @@ public class TripController {
     }
 
     @GetMapping(value = "/find", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<List<TripDTO>> find(@RequestBody TripDTO tripDTO) {
+    public ResponseEntity<List<TripDTO>> find(@Valid @RequestBody TripDTO tripDTO) throws NoTripFoundException {
         List<TripDTO> tripDTOList = tripService.find(tripDTO);
         return new ResponseEntity<>(tripDTOList, HttpStatus.OK);
     }

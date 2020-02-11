@@ -15,4 +15,6 @@ public interface Consts {
     String BUY_SUCCESSFUL = "Congratulation! You bought a trip!";
     String TRIP_NUMBER = "Your trip number is: ";
 
+    String INSUFFICIENT_PLACES_HOTEL = "Sorry! Insufficient places in our hotel for this period!";
+
 }
