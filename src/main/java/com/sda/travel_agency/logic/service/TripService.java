@@ -13,7 +13,7 @@ import com.sda.travel_agency.repository.CityDAO;
 import com.sda.travel_agency.repository.HotelAvailabilityDAO;
 import com.sda.travel_agency.repository.HotelDAO;
 import com.sda.travel_agency.repository.TripDAO;
-import com.sda.travel_agency.util.Consts;
+import com.sda.travel_agency.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,8 +88,8 @@ public class TripService {
         //search price for all type of rooms and set it to tripDTO
         tripList = checkHotelAvailability(tripList, tripDTO.getNumberOfPersons());
         if (tripList.isEmpty()) {
-            System.out.println(Consts.INSUFFICIENT_PLACES_HOTEL);
-            throw new NoTripFoundException(Consts.INSUFFICIENT_PLACES_HOTEL);
+            System.out.println(Constants.INSUFFICIENT_PLACES_HOTEL);
+            throw new NoTripFoundException(Constants.INSUFFICIENT_PLACES_HOTEL);
         }
         List<TripDTO> tripDTOList = tripConvertor.convertToDTOList(tripList);
 

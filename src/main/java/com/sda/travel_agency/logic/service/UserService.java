@@ -4,7 +4,7 @@ import com.sda.travel_agency.entities.User;
 import com.sda.travel_agency.logic.convertor.UserConvertor;
 import com.sda.travel_agency.logic.dto.UserDTO;
 import com.sda.travel_agency.repository.UserDAO;
-import com.sda.travel_agency.util.Consts;
+import com.sda.travel_agency.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +36,6 @@ public class UserService {
     public String login(UserDTO userDTO) {
         User userLogin = userConvertor.convertToTransientUser(userDTO);
         boolean login = userDAO.login(userLogin);
-        return login ? Consts.USER_LOGIN_SUCCESSFULLY : Consts.USER_LOGIN_FAILED;
+        return login ? Constants.USER_LOGIN_SUCCESSFULLY : Constants.USER_LOGIN_FAILED;
     }
 }

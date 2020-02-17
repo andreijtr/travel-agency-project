@@ -7,7 +7,7 @@ import com.sda.travel_agency.logic.convertor.HotelAvailabilityConvertor;
 import com.sda.travel_agency.logic.dto.HotelAvailabilityDTO;
 import com.sda.travel_agency.logic.exception.NoAvailableRoomsException;
 import com.sda.travel_agency.repository.HotelAvailabilityDAO;
-import com.sda.travel_agency.util.Consts;
+import com.sda.travel_agency.util.Constants;
 import com.sda.travel_agency.util.RoomsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class HotelAvailabilityService {
                 rooms.getExtraBeds() >= extraBeds) {
             return;
         }
-        throw new NoAvailableRoomsException(Consts.HOTEL_NO_ROOMS);
+        throw new NoAvailableRoomsException(Constants.HOTEL_NO_ROOMS);
     }
 
     public double computeRoomsPrice(Trip trip, int singleRooms, int doubleRooms, int extraBeds) {

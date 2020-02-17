@@ -39,12 +39,14 @@ public class HotelConvertor {
     public HotelDTO convertToDTO(Hotel hotel) {
         HotelDTO hotelDTO = new HotelDTO();
         CityDTO cityDTO = cityConvertor.convertCityToCityDTO(hotel.getCity());
-        Set<HotelAvailabilityDTO> hotelAvailabilityDTOSet = roomsConvertor.convertToDTOSet(hotel.getHotelAvailabilitySet());
+        //le am comentat pt ca apare eroare cu lazy initialization cand fac export in EXCEL desi nu am nevoie de ele
+        //eroarea apare la conversie. am nevoie de ele doar cand trimit pretul camerelor intr o anumita perioada
+//        Set<HotelAvailabilityDTO> hotelAvailabilityDTOSet = roomsConvertor.convertToDTOSet(hotel.getHotelAvailabilitySet());
+//        hotelDTO.setHotelAvailabilityDTOSet(hotelAvailabilityDTOSet);
         hotelDTO.setName(hotel.getName());
         hotelDTO.setStandard(hotel.getStandard());
         hotelDTO.setDescription(hotel.getDescription());
         hotelDTO.setCityDTO(cityDTO);
-        hotelDTO.setHotelAvailabilityDTOSet(hotelAvailabilityDTOSet);
         return hotelDTO;
     }
 

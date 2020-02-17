@@ -2,7 +2,7 @@ package com.sda.travel_agency.repository;
 
 import com.sda.travel_agency.config.HibernateUtil;
 import com.sda.travel_agency.entities.*;
-import com.sda.travel_agency.util.Consts;
+import com.sda.travel_agency.util.Constants;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 
 @Repository
 public class TripDetailDAO {
@@ -46,7 +45,7 @@ public class TripDetailDAO {
         } finally {
             session.close();
         }
-        return Consts.BUY_SUCCESSFUL + "\n" + Consts.TRIP_NUMBER + tripDetail.getTripNumber();
+        return Constants.BUY_SUCCESSFUL + "\n" + Constants.TRIP_NUMBER + tripDetail.getTripNumber();
     }
 
     //I made these method private because this is the only place where I need these methods to be called in same

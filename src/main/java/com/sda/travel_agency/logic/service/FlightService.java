@@ -5,7 +5,7 @@ import com.sda.travel_agency.logic.convertor.FlightConvertor;
 import com.sda.travel_agency.logic.dto.FlightDTO;
 import com.sda.travel_agency.logic.exception.NoSeatsAvailableException;
 import com.sda.travel_agency.repository.FlightDAO;
-import com.sda.travel_agency.util.Consts;
+import com.sda.travel_agency.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class FlightService {
 
     public void checkSeats(Flight flight, int numberOfSeats) throws NoSeatsAvailableException {
         if (flight.getAvailableSeats() <= numberOfSeats) {
-            throw new NoSeatsAvailableException(Consts.FLIGHT_NO_SEATS);
+            throw new NoSeatsAvailableException(Constants.FLIGHT_NO_SEATS);
         }
     }
 

@@ -2,7 +2,7 @@ package com.sda.travel_agency.repository;
 
 import com.sda.travel_agency.config.HibernateUtil;
 import com.sda.travel_agency.entities.User;
-import com.sda.travel_agency.util.Consts;
+import com.sda.travel_agency.util.Constants;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;

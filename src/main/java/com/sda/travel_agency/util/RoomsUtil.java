@@ -10,7 +10,7 @@ public class RoomsUtil {
                 hotelAvailability.getDoubleRooms() >= doubleRooms &&
                 hotelAvailability.getExtraBeds() >= extraBeds) {
         } else {
-            throw new NoAvailableRoomsException(Consts.HOTEL_NO_ROOMS);
+            throw new NoAvailableRoomsException(Constants.HOTEL_NO_ROOMS);
         }
     }
 

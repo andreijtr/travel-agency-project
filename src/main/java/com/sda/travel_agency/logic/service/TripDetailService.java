@@ -34,7 +34,6 @@ public class TripDetailService {
         int numberOfPersons = tripDetailDTO.getPersons();
         TripDetail tripDetail = tripDetailConvertor.convertToTransientTripDetail(tripDetailDTO);
         Trip trip = tripDetail.getTrip();
-        User user = tripDetail.getUser();
 
         double roomsPrice = 0.0;
         try {
